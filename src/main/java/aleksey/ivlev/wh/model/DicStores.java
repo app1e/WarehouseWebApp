@@ -9,21 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 @Entity
 @Table(name = "DIC_STORES")
-@NamedQueries({
-		@NamedQuery(name = "findDicStoreByName", query = "from DicStores d where LOWER(d.storName) LIKE :name"),
-		@NamedQuery(name = "DicStores.getDSId", query = "select d from DicStores d where LOWER(d.storName) LIKE :name"),
-		@NamedQuery(name = "DicStores.getDicStores", query = "select d from DicStores d") })
 public class DicStores implements Serializable {
 
 	/**

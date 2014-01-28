@@ -2,7 +2,6 @@ package aleksey.ivlev.wh.managers.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import aleksey.ivlev.wh.hibernate.OutcomesDao;
 import aleksey.ivlev.wh.managers.OutcomesManager;

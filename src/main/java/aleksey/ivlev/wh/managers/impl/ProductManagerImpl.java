@@ -1,16 +1,13 @@
 package aleksey.ivlev.wh.managers.impl;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import aleksey.ivlev.wh.hibernate.ProductDao;
 import aleksey.ivlev.wh.managers.ProductManager;
 import aleksey.ivlev.wh.model.Product;
-import aleksey.ivlev.wh.model.Report;
 
 @Service
 public class ProductManagerImpl implements ProductManager {
@@ -47,14 +44,5 @@ public class ProductManagerImpl implements ProductManager {
 	public List<Object> getReports() {
 		return productDao.getReports();
 	}
-//	
-//	@Override
-//	@Transactional
-//	public ResultSet getReport(){
-//		return productDao.getReport();
-//	}
-	
-	
-	
 
 }

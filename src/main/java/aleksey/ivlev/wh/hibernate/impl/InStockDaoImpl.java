@@ -37,7 +37,7 @@ public class InStockDaoImpl implements InStockDao {
 	public List<InStock> getInstock(final Product product,
 			final DicStores dicStores) {
 		return hibernateTemplate
-				.executeFind(new HibernateCallback<List<InStock>>() {
+				.execute(new HibernateCallback<List<InStock>>() {
 
 					@Override
 					public List<InStock> doInHibernate(Session session)

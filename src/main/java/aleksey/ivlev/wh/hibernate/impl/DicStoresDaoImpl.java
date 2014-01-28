@@ -18,10 +18,7 @@ import aleksey.ivlev.wh.model.DicStores;
 
 @Repository
 public class DicStoresDaoImpl implements DicStoresDao {
-
-//	@Autowired
-//	private SessionFactory sessionFactory;
-	
+ 
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 	

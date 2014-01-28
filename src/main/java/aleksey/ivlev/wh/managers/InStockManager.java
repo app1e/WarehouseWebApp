@@ -12,7 +12,7 @@ public interface InStockManager {
 
 	 List<InStock> getInstock(Product product, DicStores dicStores);
 
-	public void editInstock(InStock instock);
+	void editInstock(InStock instock);
 
 	Long getProductCount(String prodName, String storName);
 }

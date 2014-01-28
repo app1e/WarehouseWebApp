@@ -3,8 +3,6 @@ package aleksey.ivlev.wh.utils;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -25,7 +23,7 @@ public class DeletingProductValidator implements Validator {
 		this.instockManager = instockManager;
 	}
 	@Override
-	public boolean supports(Class clazz) {
+	public boolean supports(Class<?> clazz) {
 		return Report.class.equals(clazz);
 	}
 

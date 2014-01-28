@@ -3,9 +3,7 @@ package aleksey.ivlev.wh.controller;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -95,7 +93,6 @@ public class ReportController {
 	public void initBinder(WebDataBinder binder) {
 	   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	   binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	   //NumberFormatUtil.registerLongFormat(binder);
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -161,14 +158,6 @@ public class ReportController {
     		return "redirect:/";
     	}
     }
-
-//	private String convertFieldValue(String fieldValue, String fieldValueTmp) {
-//		if(fieldValue != "NONE"){
-//			return fieldValue;
-//		}else{
-//			return fieldValueTmp;
-//		}
-//	}
 	
 	@RequestMapping(value = "/writeOff", method = RequestMethod.GET)
     public String deleteProducts(ModelMap map)
@@ -185,7 +174,6 @@ public class ReportController {
 		DeletingProductValidator deletingValidator = new DeletingProductValidator(instockManager);
 		deletingValidator.validate(report, result);
 		if(result.hasErrors()){
-			List<ObjectError> errors = result.getAllErrors();
 			return "/writeOff";
     	}else{
 			DicStores dicStore = dicStoresManager.getDicStore(report.getDicStores().getStorName());
@@ -207,28 +195,5 @@ public class ReportController {
 			return "redirect:/";
     	}
     }
-	
-	
-	@RequestMapping(value = "/addTest", method = RequestMethod.GET)
-    public String addReport(ModelMap map)
-    {
-		map.addAttribute("product", new Product());
-        return "addTest";
-    }
-	
-	@RequestMapping(value = "/addTest.add", method = RequestMethod.POST)
-	public String addReports(@Valid @ModelAttribute(value="product")Product product, BindingResult result) 
-	{
-		if(result.hasErrors()){
-			return "addTest";
-		}else{
-//			Product product = report.getProduct();
-//			Incomes inc = report.getIncomes();
-			productManager.addProduct(product);
-//			/incomesService.addIncomes(inc);
-			
-			return "redirect:/";	
-		}
-		
-	}
+
 }
