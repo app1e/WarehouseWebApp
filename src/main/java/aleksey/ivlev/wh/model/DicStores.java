@@ -1,33 +1,41 @@
 package aleksey.ivlev.wh.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @Entity
 @Table(name = "DIC_STORES")
-@NamedQueries({@NamedQuery(name="DicStores.getDSId", query="select d from DicStores d where LOWER(d.storName) LIKE :name"),
-    @NamedQuery(name="DicStores.getDicStores", query="select d from DicStores d")})
+@NamedQueries({
+		@NamedQuery(name = "findDicStoreByName", query = "from DicStores d where LOWER(d.storName) LIKE :name"),
+		@NamedQuery(name = "DicStores.getDSId", query = "select d from DicStores d where LOWER(d.storName) LIKE :name"),
+		@NamedQuery(name = "DicStores.getDicStores", query = "select d from DicStores d") })
 public class DicStores implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6305029992643994762L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "STOR_ID")
-	private int storId;
-
-	@Column(name = "STOR_NAME")
+	
+	private Long storId;
 	private String storName;
+	Set<Incomes> incomes = new  HashSet<Incomes>(0);
+	Set<Outcomes> outcomes = new HashSet<Outcomes>(0);
+	Set<InStock> instock = new HashSet<InStock>(0);
 
 	public DicStores() {
 	}
@@ -35,15 +43,20 @@ public class DicStores implements Serializable {
 	public DicStores(String storName) {
 		this.storName = storName;
 	}
-
-	public int getStorId() {
+	
+	@Id
+	@SequenceGenerator(name="dicStIdSeq", sequenceName="SEQ_DIC_STORES", allocationSize=10, initialValue=1)
+    @GeneratedValue(generator="dicStIdSeq")
+	@Column(name = "STOR_ID")
+	public Long getStorId() {
 		return storId;
 	}
 
-	public void setStorId(int storId) {
+	public void setStorId(Long storId) {
 		this.storId = storId;
 	}
-
+	
+	@Column(name = "STOR_NAME")
 	public String getStorName() {
 		return storName;
 	}
@@ -51,36 +64,56 @@ public class DicStores implements Serializable {
 	public void setStorName(String storName) {
 		this.storName = storName;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "dicStores")
+	public Set<Incomes> getIncomes() {
+		return incomes;
+	}
+	
+	public void setIncomes(Set<Incomes> incomes) {
+		this.incomes = incomes;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "dicStores")
+	public Set<Outcomes> getOutcomes() {
+		return outcomes;
+	}
+
+	public void setOutcomes(Set<Outcomes> outcomes) {
+		this.outcomes = outcomes;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "dicStores")
+	public Set<InStock> getInstock() {
+		return instock;
+	}
+
+	public void setInstock(Set<InStock> instock) {
+		this.instock = instock;
+	}
+
+	@Override
+	public boolean equals(final Object other) {
+		if (!(other instanceof DicStores))
+			return false;
+		DicStores castOther = (DicStores) other;
+		return new EqualsBuilder().append(storId, castOther.storId)
+				.append(storName, castOther.storName).isEquals();
+	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + storId;
-		result = prime * result
-				+ ((storName == null) ? 0 : storName.hashCode());
-		return result;
+		return new HashCodeBuilder().append(storId).append(storName).toHashCode();
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DicStores other = (DicStores) obj;
-		if (storId != other.storId)
-			return false;
-		if (storName == null) {
-			if (other.storName != null)
-				return false;
-		} else if (!storName.equals(other.storName))
-			return false;
-		return true;
+	public String toString() {
+		return new ToStringBuilder(this).append("storId", storId)
+				.append("storName", storName).append("incomes", incomes)
+				.append("outcomes", outcomes).append("instock", instock)
+				.toString();
 	}
-	
-	
 
+	
+	
 }

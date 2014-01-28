@@ -4,10 +4,19 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @Entity
 @Table(name = "OUTCOME_DETAILS")
@@ -18,58 +27,47 @@ public class OutcomeDetails implements Serializable {
 	 */
 	private static final long serialVersionUID = 2819908138793086301L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "OUTD_ID")
-	private int outdId;
-
-	@Column(name = "OUTD_OUT_ID")
-	private int outdOutId;
-
-	@Column(name = "OUTD_PROD_ID")
-	private int outdProdId;
-
-	@Column(name = "OUTD_COUNT")
-	private int outdCount;
-
-	@Column(name = "OUTD_PRICE")
+	private Long outdId;
+	private Long outdCount;
 	private Long outdPrice;
+	private Outcomes outcomes;
+	private Product product;
+
+	
 
 	public OutcomeDetails() {
 	}
 
-	public OutcomeDetails(int outdOutId, int outdProdId, int outdCount,
+	public OutcomeDetails(Outcomes outcomes, Product product, Long outdCount,
 			Long outdPrice) {
-		this.outdOutId = outdOutId;
-		this.outdProdId = outdProdId;
+		this.outcomes = outcomes;
+		this.product = product;
 		this.outdCount = outdCount;
 		this.outdPrice = outdPrice;
 	}
 
-	public int getOutdCount() {
-		return outdCount;
-	}
-
-	public void setOutdCount(int outdCount) {
-		this.outdCount = outdCount;
-	}
-
-	public int getOutdId() {
+	@Id
+	@SequenceGenerator(name="outDetIdSeq", sequenceName="SEQ_OUTCOME_DETAILS", allocationSize=10, initialValue=1)
+    @GeneratedValue(generator="outDetIdSeq")
+	@Column(name = "OUTD_ID")
+	public Long getOutdId() {
 		return outdId;
 	}
 
-	public void setOutdId(int outdId) {
+	public void setOutdId(Long outdId) {
 		this.outdId = outdId;
 	}
-
-	public int getOutdOutId() {
-		return outdOutId;
+	
+	@Column(name = "OUTD_COUNT")
+	public Long getOutdCount() {
+		return outdCount;
 	}
 
-	public void setOutdOutId(int outdOutId) {
-		this.outdOutId = outdOutId;
+	public void setOutdCount(Long outdCount) {
+		this.outdCount = outdCount;
 	}
-
+	
+	@Column(name = "OUTD_PRICE")
 	public Long getOutdPrice() {
 		return outdPrice;
 	}
@@ -78,42 +76,53 @@ public class OutcomeDetails implements Serializable {
 		this.outdPrice = outdPrice;
 	}
 
-	public int getOutdProdId() {
-		return outdProdId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "OUTD_OUT_ID", nullable = false)
+	public Outcomes getOutcomes() {
+		return outcomes;
 	}
 
-	public void setOutdProdId(int outdProdId) {
-		this.outdProdId = outdProdId;
+	public void setOutcomes(Outcomes outcomes) {
+		this.outcomes = outcomes;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "OUTD_PROD_ID", nullable = false)
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@Override
+	public boolean equals(final Object other) {
+		if (!(other instanceof OutcomeDetails))
+			return false;
+		OutcomeDetails castOther = (OutcomeDetails) other;
+		return new EqualsBuilder().append(outdId, castOther.outdId)
+				.append(outdCount, castOther.outdCount)
+				.append(outdPrice, castOther.outdPrice)
+				.append(outcomes, castOther.outcomes)
+				.append(product, castOther.product).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + outdId;
-		result = prime * result + outdOutId;
-		result = prime * result + outdProdId;
-		return result;
+		return new HashCodeBuilder().append(outdId).append(outdCount)
+				.append(outdPrice).append(outcomes).append(product)
+				.toHashCode();
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OutcomeDetails other = (OutcomeDetails) obj;
-		if (outdId != other.outdId)
-			return false;
-		if (outdOutId != other.outdOutId)
-			return false;
-		if (outdProdId != other.outdProdId)
-			return false;
-		return true;
+	public String toString() {
+		return new ToStringBuilder(this).append("outdId", outdId)
+				.append("outdCount", outdCount).append("outdPrice", outdPrice)
+				.append("outcomes", outcomes).append("product", product)
+				.toString();
 	}
-	
-	
 
+	
+	
 }
