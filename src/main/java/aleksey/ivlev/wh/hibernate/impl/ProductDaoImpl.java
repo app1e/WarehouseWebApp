@@ -81,7 +81,7 @@ public class ProductDaoImpl implements ProductDao {
 			@Override
 			public List<String> doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				Query query = session.createQuery("SELECT p.prodName FROM product p order by p.prodName asc");
+				Query query = session.createQuery("SELECT p.prodName FROM Product p order by p.prodId asc");
 				return query.list();
 			}
 		});

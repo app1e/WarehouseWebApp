@@ -23,7 +23,7 @@
 		<h1>Test Warehouse / Write off the products</h1>
 	</div>
 	<div id="viewDetails2">
-		<%!  Calendar calendar = Calendar.getInstance();
+		<%! Calendar calendar = Calendar.getInstance();
                 Date currentDate = calendar.getTime();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = formatter.format(currentDate);
@@ -36,59 +36,59 @@
 		<br /> <br />
 		
 		
-		<form:form method="post" action="writeOff.delete" commandName="report">
+		<form:form method="post" action="writeOff.delete" commandName="productDto">
 			<table>
 				<th width="125px">
-					<form:label path="outcomes.outDate">
+					<form:label path="outDate">
 						<spring:message code="label.outDate" />
 					</form:label> <br />
-					<form:input path="outcomes.outDate" value="<%= formattedDate %>" readonly="true"/>
+					<form:input path="outDate" value="<%= formattedDate %>" readonly="true"/>
 				</th>
 				<th width="200px">
-					<form:label path="outcomes.outCustomer">
+					<form:label path="outCustomer">
 						<spring:message code="label.outCustomer" />
 					</form:label> </br>
-					<form:input path="outcomes.outCustomer"/>
+					<form:input path="outCustomer"/>
 				</th>
 				<th width="275px">
-					<form:label path="dicStores.storName">
+					<form:label path="storName">
 						<spring:message code="label.storName" />
 					</form:label> 
 					<br />
-					<form:select path="dicStores.storName" id="storName" >
+					<form:select path="storName" id="storName" >
 						<form:options items="${dicStores}" itemValue="storName" itemLabel="storName" />
 					</form:select>
 				</th>
 				<tr>
 					<td>
-						<form:label path="product.prodName">
+						<form:label path="prodName">
 							<spring:message code="label.prodName" />
 						</form:label>
 					</td>
 					<td colspan="2">
-						<form:select path="product.prodName" id="prodName" >
+						<form:select path="prodName">
 							<form:options items="${products}" itemValue="prodName" itemLabel="prodName" />
 						</form:select> 
-					<form:errors path="product.prodName"  cssClass="error"/>					
+					<form:errors path="prodName"  cssClass="error"/>					
 					
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<form:label path="outcomeDetails.outdCount">
+						<form:label path="outdCount">
 							<spring:message code="label.outdCount" />
 						</form:label>
 					</td>
 					<td>
-						<form:input path="outcomeDetails.outdCount" id="count"/> 
-							<form:select path="product.prodDescription" >
+						<form:input path="outdCount" id="count"/> 
+							<form:select path="prodDescription" >
 								<form:option value="kg" label="kg" />
 								<form:option value="pcs" label="pcs" />
 								<form:option value="cm" label="cm" />
 								<form:option value="m" label="m" />
 							</form:select>
 					</td>
-					<td><form:errors path="outcomeDetails.outdCount" cssClass="error" /></td>
+					<td><form:errors path="outdCount" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td colspan="3"><input align="center" type="submit"
@@ -96,8 +96,8 @@
 					</td>
 				</tr>
 			</table>
-			<form:errors path="outcomes.outCustomer" cssClass="error" /><br />
-			<form:errors path="dicStores.storName" cssClass="error" />
+			<form:errors path="outCustomer" cssClass="error" /><br />
+			<form:errors path="storName" cssClass="error" />
 		</form:form>
 	</div>
 </body>

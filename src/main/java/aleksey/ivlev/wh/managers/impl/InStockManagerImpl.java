@@ -1,7 +1,5 @@
 package aleksey.ivlev.wh.managers.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +28,7 @@ public class InStockManagerImpl implements InStockManager {
 	}
 
 	@Override
-	public  List<InStock> getInstock(Product product, DicStores dicStores) {
+	public  InStock getInstock(Product product, DicStores dicStores) {
 		return instockDao.getInstock(product, dicStores);
 	}
 
@@ -43,6 +41,28 @@ public class InStockManagerImpl implements InStockManager {
 	@Override
 	public Long getProductCount(String prodName, String storName) {
 		return instockDao.getProductCount(prodName, storName);
+	}
+
+	@Override
+	public void createOrUpdateInStock(Product product, DicStores dicStores, Long incdCount) {
+		InStock editableInStock = getInstock(product, dicStores);
+		if(editableInStock == null){
+			InStock inStock = new InStock(product, dicStores, incdCount);
+			addInstock(inStock);
+		}else{
+			editableInStock.setStorCount(editableInStock.getStorCount() + incdCount);
+			editInstock(editableInStock);
+		}
+		
+	}
+
+	@Override
+	public void updateInStock(Product product, DicStores dicStores,
+			Long outdCount) {
+		InStock editableInStock = getInstock(product, dicStores);
+		editableInStock.setStorCount(editableInStock.getStorCount() - outdCount);
+		editInstock(editableInStock);
+		
 	}
 
 }

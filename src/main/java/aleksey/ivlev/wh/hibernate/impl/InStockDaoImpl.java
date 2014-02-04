@@ -32,27 +32,27 @@ public class InStockDaoImpl implements InStockDao {
 		hibernateTemplate.save(instock);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<InStock> getInstock(final Product product,
+	public InStock getInstock(final Product product,
 			final DicStores dicStores) {
 		return hibernateTemplate
-				.execute(new HibernateCallback<List<InStock>>() {
+				.execute(new HibernateCallback<InStock>() {
 
 					@Override
-					public List<InStock> doInHibernate(Session session)
+					public InStock doInHibernate(Session session)
 							throws HibernateException, SQLException {
-						List<InStock> instockList = new LinkedList<InStock>();
+						InStock instock = new InStock();
 						Query query = session
 								.createQuery(
 										"select i from InStock i where i.product = :product and i.dicStores = :dicStores")
 								.setParameter("product", product)
 								.setParameter("dicStores", dicStores);
-						instockList = query.list();
-						if (instockList == null || instockList.isEmpty()) {
-							return null;
+						instock = (InStock) query.uniqueResult();
+						if (instock != null) {
+							return instock;
+							
 						} else {
-							return instockList;
+							return null;
 						}
 					}
 				});
