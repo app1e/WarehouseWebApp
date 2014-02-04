@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/webapp"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
 	<classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar">
@@ -185,6 +184,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

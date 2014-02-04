@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import aleksey.ivlev.wh.converter.Converter;
 import aleksey.ivlev.wh.dto.ProductDto;
 import aleksey.ivlev.wh.managers.DicStoresManager;
 import aleksey.ivlev.wh.managers.InStockManager;
@@ -93,7 +92,9 @@ public class AddController {
 		} else {
 			DicStores dicStore = dicStoresManager
 					.getOrCreateDicStores(productDto.getStorName());
-			Incomes inc = new Converter().convertToIncomes(productDto, dicStore);
+			Incomes inc = incomesManager.convertToIncomes(
+					productDto.getIncDate(), productDto.getIncSupplierName(),
+					dicStore);
 			incomesManager.addIncomes(inc);
 			Product product = productManager.getOrCreateProduct(
 					productDto.getProdName(), productDto.getProdDescription());
