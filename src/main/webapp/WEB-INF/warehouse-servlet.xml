@@ -83,8 +83,6 @@
  	
  	<bean id="outcomesDao" class="aleksey.ivlev.wh.hibernate.impl.OutcomesDaoImpl"></bean>
  	<bean id="outcomesManager" class="aleksey.ivlev.wh.managers.impl.OutcomesManagerImpl"></bean> 
- 		 
-
  
     <tx:annotation-driven />
     <bean id="transactionManager"

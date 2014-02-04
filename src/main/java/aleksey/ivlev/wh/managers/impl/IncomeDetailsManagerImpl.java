@@ -30,4 +30,10 @@ public class IncomeDetailsManagerImpl implements IncomeDetailsManager {
 		return incomeDetDao.getIncProdIdWithIncId(product, incomes);
 	}
 
+	@Override
+	public IncomeDetails convertToIncomeDetails(Product product,
+			Long incdPrice, Long incdCount, Incomes incomes) {
+		return new IncomeDetails(product, incdPrice, incdCount, incomes);
+	}
+
 }
