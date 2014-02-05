@@ -12,6 +12,6 @@
         <mapping class="aleksey.ivlev.wh.model.InStock"></mapping>
         <mapping class="aleksey.ivlev.wh.model.OutcomeDetails"></mapping>
         <mapping class="aleksey.ivlev.wh.model.Outcomes"></mapping>
-        <mapping class="aleksey.ivlev.wh.model.Report"></mapping>
+        <mapping class="aleksey.ivlev.wh.dto.ProductDto"></mapping>
     </session-factory>
 </hibernate-configuration>

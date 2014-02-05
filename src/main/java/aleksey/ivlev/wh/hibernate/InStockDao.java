@@ -1,7 +1,5 @@
 package aleksey.ivlev.wh.hibernate;
 
-import java.util.List;
-
 import aleksey.ivlev.wh.model.DicStores;
 import aleksey.ivlev.wh.model.InStock;
 import aleksey.ivlev.wh.model.Product;
@@ -10,7 +8,7 @@ public interface InStockDao {
 	
 	void addInstock(InStock instock);
 
-    List<InStock> getInstock(Product product, DicStores dicStores);
+	InStock getInstock(Product product, DicStores dicStores);
 
     public void editInstock(InStock instock);
 
