@@ -13,3 +13,6 @@ target/**
 .project/**
 .settings
 .settings/**
+*.project
+*.prefs
+*.component
