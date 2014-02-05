@@ -5,3 +5,11 @@
 *.war
 *.ear
 
+# Directories #
+
+target
+target/**
+.project
+.project/**
+.settings
+.settings/**
