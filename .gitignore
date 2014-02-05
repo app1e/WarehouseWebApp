@@ -7,5 +7,6 @@
 
 # Folders #
 
-*/target/**
+target/
 .project/
+.settings/
