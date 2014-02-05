@@ -45,14 +45,4 @@ public class ProductManagerImpl implements ProductManager {
 		return productDao.getReports();
 	}
 
-	@Override
-	public Product getOrCreateProduct(String prodName, String prodDescription) {
-		Product product = getProduct(prodName);
-		if(product == null){
-			product = new Product(prodName, prodDescription);
-			addProduct(product);
-		}
-		return product;
-	}
-
 }

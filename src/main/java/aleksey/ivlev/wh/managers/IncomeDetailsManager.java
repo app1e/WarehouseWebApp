@@ -9,7 +9,5 @@ public interface IncomeDetailsManager {
 	void addIncomeDetails(IncomeDetails incomeDetails);
 
     Long getIncProdIdWithIncId (Product product, Incomes incomes);
-    
-    IncomeDetails convertToIncomeDetails(Product product, Long incdPrice, Long incdCount, Incomes incomes);
 	
 }

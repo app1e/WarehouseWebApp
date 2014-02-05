@@ -49,14 +49,4 @@ public class DicStoresManagerImpl implements DicStoresManager {
 		return dicStoresDao.getPrice(prodName, storName);
 	}
 
-	@Override
-	public DicStores getOrCreateDicStores(String storName) {
-		DicStores dicStore = getDicStore(storName);
-		if(dicStore == null){
-			dicStore = new DicStores(storName);
-			addDicStores(dicStore);
-		} 
-		return dicStore;
-	}
-
 }

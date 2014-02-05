@@ -8,8 +8,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import aleksey.ivlev.wh.dto.ProductDto;
 import aleksey.ivlev.wh.managers.InStockManager;
+import aleksey.ivlev.wh.model.Report;
 
 @Component
 public class DeletingProductValidator implements Validator {
@@ -24,32 +24,33 @@ public class DeletingProductValidator implements Validator {
 	}
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return ProductDto.class.equals(clazz);
+		return Report.class.equals(clazz);
 	}
 
 	@Override
 	public void validate(Object obj, Errors errors) {
 		Locale locale = new Locale("en");
 		ResourceBundle messages = ResourceBundle.getBundle("messages", locale);
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "outCustomer", "report.outcomes.outCustomer", new Object[]{messages.getString("label.outCustomer")});
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "outdCount", "NotEmpty.report.outcomeDetails.outdCount", new Object[]{messages.getString("label.outdCount")});
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "prodName", "NotEmpty.report.product.prodName", new Object[]{messages.getString("label.prodName")});
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "storName", "NotEmpty.report.dicStores.storName", new Object[]{messages.getString("label.storName")});
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "outcomes.outCustomer", "report.outcomes.outCustomer", new Object[]{messages.getString("label.outCustomer")});
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "outcomeDetails.outdCount", "NotEmpty.report.outcomeDetails.outdCount", new Object[]{messages.getString("label.outdCount")});
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "product.prodName", "NotEmpty.report.product.prodName", new Object[]{messages.getString("label.prodName")});
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dicStores.storName", "NotEmpty.report.dicStores.storName", new Object[]{messages.getString("label.storName")});
 		
-		ProductDto productDto = (ProductDto)obj;
+		Report report = (Report)obj;
 		
-		if(productDto.getOutdCount() != null){
-			if(productDto.getOutdCount() < 0L
-					|| productDto.getOutdCount() == 0L){
-				errors.rejectValue("outdCount", "report.outcomeDetails.outdCount");
+		if(report.getOutcomeDetails().getOutdCount() != null){
+			if(report.getOutcomeDetails().getOutdCount() < 0L
+					|| report.getOutcomeDetails().getOutdCount() == 0L){
+				errors.rejectValue("outcomeDetails.outdCount", "report.outcomeDetails.outdCount");
 			}
-			Long prodCount = instockManager.getProductCount(productDto.getProdName(), 
-					productDto.getStorName());
+			Long prodCount = instockManager.getProductCount(report.getProduct().getProdName(), 
+					report.getDicStores().getStorName());
 			if(prodCount == -1L){
-				errors.rejectValue("prodName", "NoData.report.product.prodName");
+				errors.rejectValue("outcomeDetails.outdCount", "NoData.report.outcomeDetails.outdCount");
 			}
-			if((prodCount - productDto.getOutdCount()) < 0L){
-				errors.rejectValue("outdCount", "report.outcomeDetails.outdCount.msg", new Object[]{"asdsd"}, "Default message");
+			if((prodCount - report.getOutcomeDetails().getOutdCount()) < 0L){
+				System.out.println("true");
+				errors.rejectValue("outcomeDetails.outdCount", "Size.report.outcomeDetails.outdCount", "Default message");
 			}
 		}			
 

@@ -125,7 +125,6 @@ public class Product implements Serializable {
 				.append("prodDescription", prodDescription)
 				.append("incomeDetails", incomeDetails)
 				.append("outcomeDetails", outcomeDetails)
-				.append("inStock", inStock)
-				.toString();
+				.append("inStock", inStock).toString();
 	}	
 }

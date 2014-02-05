@@ -17,6 +17,4 @@ public interface DicStoresManager {
 	List<DicStores> getReports();
 
 	Long getPrice(String prodName, String storName);
-	
-	DicStores getOrCreateDicStores(String storName);
 }

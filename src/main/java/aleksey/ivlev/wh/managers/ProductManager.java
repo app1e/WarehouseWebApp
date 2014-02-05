@@ -15,6 +15,4 @@ public interface ProductManager {
 	List<String> getProdName();
 	
 	List<Object> getReports();
-	
-	Product getOrCreateProduct(String prodName, String prodDescription);
 }
